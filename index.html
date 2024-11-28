@@ -2,52 +2,182 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>趣味网页</title>
-  <style>
-    body {
-      text-align: center;
-      padding-top: 50px;
-      font-family: Arial, sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>致小座机</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* 使页面内容在垂直方向上居中 */
+        }
 
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+        h1 {
+            color: #6cecec;
+            font-size: 36px;
+            margin: 20px 0;
+        }
 
-    #message {
-      margin-top: 20px;
-      font-size: 20px;
-    }
-  </style>
+        p {
+            font-size: 20px;
+            line-height: 1.5;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        /* 照片容器样式 */
+      .photo-container {
+            width: 90%;
+            max-width: 600px; /* 最大宽度 */
+            margin: 30px auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 添加阴影效果，使容器更具立体感 */
+            border-radius: 10px; /* 添加圆角效果，使容器外观更柔和 */
+
+            /* 设置容器的高度，确保照片能更好地适配容器 */
+            height: 550px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 照片样式 */
+      .photo-container img {
+            width: 100%;
+            height: 100%; /* 让照片完全填充容器 */
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.5s ease; /* 添加平滑过渡效果 */
+            display: block;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        /* 链接样式 */
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #FF69B4;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer; /* 设置鼠标指针样式为手型 */
+        }
+
+        /* 设置canvas元素覆盖在照片容器上，并调整大小以适应照片容器 */
+        canvas {
+            position: absolute;
+            top: 50px; /* 调整爱心距离顶部的位置 */
+            left: 50px; /* 调整爱心距离左侧的位置 */
+            width: 100px; /* 缩小爱心的宽度 */
+            height: 100px; /* 缩小爱心的高度 */
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
-  <h1>欢迎来到趣味网页</h1>
-  <button onclick="changeBackground()">点击我变魔法</button>
-  <p id="message"></p>
+    <h1>亲爱的小座机，祝你一切顺利，天天开心！</h1>
+    <p>小座机表情包大赏(*^▽^*)。</p>
 
-  <script>
-    // 定义颜色数组和对应的有趣文字数组
-    var colors = ["#FF5733", "#33FF57", "#5733FF", "#FF33E0", "#33E0FF"];
-    var messages = ["哇，变成了热情的橙色啦！", "哈哈，清新的绿色出现咯！", "神秘的紫色来袭！", "浪漫的粉色登场！", "深邃的蓝色来啦！"];
+    <!-- 照片展示区域 -->
+    <div class="photo-container">
+        <img src="photo6.jpg" alt="照片 1">
+        <img src="photo7.jpg" alt="照片 2">
+        <img src="photo8.jpg" alt="照片 3">
+        <img src="photo9.jpg" alt="照片 4">
+        <img src="photo10.jpg" alt="照片 5">
+    </div>
 
-    function changeBackground() {
-      // 随机生成一个颜色索引
-      var randomIndex = Math.floor(Math.random() * colors.length);
-      // 设置背景颜色
-      document.body.style.backgroundColor = colors[randomIndex];
-      // 更新显示的文字
-      document.getElementById('message').innerHTML = messages[randomIndex];
-    }
-  </script>
+    <a href="#" id="loveButton">点击这里弹出爱心</a>
+
+    <canvas id="loveCanvas" width="300" height="300"></canvas>
+
+    <script>
+        window.onload = function () {
+            // 获取所有照片元素
+            const photos = document.querySelectorAll('.photo-container img');
+
+            // 当前显示的照片索引
+            let currentPhotoIndex = 0;
+
+            // 定义切换照片的函数
+            function switchPhoto() {
+                // 先将所有照片的透明度设置为0，即隐藏所有照片
+                photos.forEach((photo) => {
+                    photo.style.opacity = '0';
+                    photo.style.zIndex = '0'; /* 确保隐藏照片的z-index较低 */
+                });
+
+                // 显示当前索引对应的照片
+                const currentPhoto = photos[currentPhotoIndex];
+                currentPhoto.style.opacity = '1';
+                currentPhoto.style.zIndex = '2'; /* 将当前显示照片的z-index设置为较高的值，确保能覆盖其他照片 */
+
+                // 更新索引，循环切换照片
+                currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+            }
+
+            // 初始化显示第一张照片
+            switchPhoto();
+
+            // 每隔一定时间（2秒）调用切换照片函数
+            setInterval(switchPhoto, 2000);
+
+            // 获取爱心按钮和canvas元素
+            const loveButton = document.getElementById('loveButton');
+            const loveCanvas = document.getElementById('loveCanvas');
+
+            // 点击按钮显示爱心动画
+            loveButton.addEventListener('click', function () {
+                loveCanvas.style.display = 'block';
+
+                // 创建爱心绘制函数
+                function drawHeart(ctx) {
+                    // 调整爱心的初始位置和大小
+                    ctx.beginPath();
+                    ctx.moveTo(50, 30); /* 进一步调整爱心的起始绘制点，使其更小且位置合适 */
+                    ctx.bezierCurveTo(50, 25, 45, 20, 35, 20);
+                    ctx.bezierCurveTo(25, 20, 25, 40, 25, 40);
+                    ctx.bezierCurveTo(25, 50, 30, 60, 50, 70);
+                    ctx.bezierCurveTo(70, 60, 75, 50, 75, 40);
+                    ctx.bezierCurveTo(75, 40, 75, 20, 65, 20);
+                    ctx.bezierCurveTo(55, 20, 50, 25, 50, 30);
+                    ctx.fillStyle = 'red';
+                    ctx.fill();
+                    ctx.closePath();
+                }
+
+                // 创建动画函数
+                function animate() {
+                    const ctx = loveCanvas.getContext('2d');
+                    ctx.clearRect(0, 0, loveCanvas.width, loveCanvas.height);
+
+                    // 绘制爱心
+                    drawHeart(ctx);
+
+                    // 改变爱心大小实现跳动效果
+                    let scale = 1 + 0.15 * Math.sin(Date.now() / 500); /* 调整跳动幅度，使爱心看起来更小且跳动自然 */
+                    ctx.scale(scale, scale);
+
+                    requestAnimationFrame(animate);
+                }
+
+                // 启动动画
+                animate();
+            });
+        };
+    </script>
 </body>
 
 </html>
