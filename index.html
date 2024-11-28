@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>趣味网页</title>
+  <style>
+    body {
+      text-align: center;
+      padding-top: 50px;
+      font-family: Arial, sans-serif;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>欢迎来到趣味网页</h1>
+  <button onclick="changeBackground()">点击我变魔法</button>
+  <p id="message"></p>
+
+  <script>
+    // 定义颜色数组和对应的有趣文字数组
+    var colors = ["#FF5733", "#33FF57", "#5733FF", "#FF33E0", "#33E0FF"];
+    var messages = ["哇，变成了热情的橙色啦！", "哈哈，清新的绿色出现咯！", "神秘的紫色来袭！", "浪漫的粉色登场！", "深邃的蓝色来啦！"];
+
+    function changeBackground() {
+      // 随机生成一个颜色索引
+      var randomIndex = Math.floor(Math.random() * colors.length);
+      // 设置背景颜色
+      document.body.style.backgroundColor = colors[randomIndex];
+      // 更新显示的文字
+      document.getElementById('message').innerHTML = messages[randomIndex];
+    }
+  </script>
+</body>
+
+</html>
