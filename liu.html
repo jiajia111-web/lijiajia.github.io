@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>耶(＾－＾)V</title>
+  <style>
+    /* 整体页面布局，使内容居中并设置背景渐变效果 */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(45deg, #ffcccc, #ff9999, #ff6666, #ff3333);
+      animation: bgAnimation 10s infinite alternate; /* 背景渐变动画 */
+    }
+
+    /* 定义爱心的样式 */
+ .heart {
+      position: relative;
+      width: 120px;
+      height: 110px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* 爱心添加阴影效果 */
+    }
+
+ .heart:before,
+ .heart:after {
+      position: absolute;
+      content: "";
+      left: 60px;
+      top: 0;
+      width: 60px;
+      height: 100px;
+      background: red;
+      border-radius: 50px 50px 0 0;
+      transform: rotate(-45deg);
+      transform-origin: 0 100%;
+    }
+
+ .heart:after {
+      left: 0;
+      transform: rotate(45deg);
+      transform-origin: 100% 100%;
+    }
+
+    /* 让爱心跳动且有更复杂的动画效果，包括闪烁 */
+    @keyframes heartbeat {
+      0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+
+      25% {
+        transform: scale(1.2) rotate(10deg);
+        opacity: 0.8;
+      }
+
+      50% {
+        transform: scale(1.4) rotate(0deg);
+        opacity: 1;
+      }
+
+      75% {
+        transform: scale(1.2) rotate(-10deg);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+
+    /* 爱心闪烁效果动画 */
+    @keyframes heartBlink {
+      0% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+ .heart {
+      animation: heartbeat 1.5s infinite, heartBlink 3s infinite alternate;
+    }
+
+    /* 定义文字的样式 */
+    p {
+      text-align: center;
+      font-size: 28px;
+      color: white;
+      margin-top: 30px;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* 文字添加阴影效果 */
+      animation: textAnimation 3s infinite alternate; /* 文字动画效果 */
+    }
+
+    /* 文字动画关键帧定义 */
+    @keyframes textAnimation {
+      0% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    /* 背景渐变动画关键帧定义 */
+    @keyframes bgAnimation {
+      0% {
+        background-position: left top;
+      }
+
+      100% {
+        background-position: right bottom;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 放置爱心元素 -->
+  <div class="heart"></div>
+  <!-- 放置自定义文字 -->
+  <p>小刘子，晚上好呀</p>
+</body>
+
+</html>
